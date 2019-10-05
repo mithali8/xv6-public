@@ -532,3 +532,48 @@ procdump(void)
     cprintf("\n");
   }
 }
+
+int 
+cps(void)
+{
+	struct proc *p;
+	char *state;
+	for(p = ptable.proc; p < &ptable.proc[NPROC]; p++)
+	{
+		
+		if(p->state == 1)
+		{
+			state = "embryo";
+			cprintf("%d, %s, %s\n", p->pid, p->name, state);
+		}
+		else if(p->state == 2)
+		{
+			state = "sleep";
+			cprintf("%d, %s, %s\n", p->pid, p->name, state);
+		}
+		else if(p->state == 3)
+		{
+			state = "runble";
+			cprintf("%d, %s, %s\n", p->pid, p->name, state);
+		}
+		else if(p->state == 4)
+		{
+			state = "run";
+			cprintf("%d, %s, %s\n", p->pid, p->name, state);
+		}
+		else if(p->state == 5)
+		{
+			state = "zombie";
+			cprintf("%d, %s, %s\n", p->pid, p->name, state);
+		}
+		
+		else
+		{
+			state = "undefined";
+		}
+		
+		
+	}
+	return 0;
+		
+}
