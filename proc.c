@@ -342,6 +342,7 @@ scheduler(void)
       c->proc = p;
       switchuvm(p);
       p->state = RUNNING;
+      p->priority = 10;
 
       swtch(&(c->scheduler), p->context);
       switchkvm();
@@ -351,6 +352,7 @@ scheduler(void)
       c->proc = 0;
     }
     release(&ptable.lock);
+    
 
   }
 }
@@ -544,27 +546,27 @@ cps(void)
 		if(p->state == 1)
 		{
 			state = "embryo";
-			cprintf("%d, %s, %s\n", p->pid, p->name, state);
+			cprintf("(%d, %s, %s, %d)\n", p->pid, p->name, state, p->priority);
 		}
 		else if(p->state == 2)
 		{
 			state = "sleep";
-			cprintf("%d, %s, %s\n", p->pid, p->name, state);
+			cprintf("(%d, %s, %s, %d)\n", p->pid, p->name, state, p->priority);
 		}
 		else if(p->state == 3)
 		{
 			state = "runble";
-			cprintf("%d, %s, %s\n", p->pid, p->name, state);
+			cprintf("(%d, %s, %s, %d)\n", p->pid, p->name, state, p->priority);
 		}
 		else if(p->state == 4)
 		{
 			state = "run";
-			cprintf("%d, %s, %s\n", p->pid, p->name, state);
+			cprintf("(%d, %s, %s, %d)\n", p->pid, p->name, state, p->priority);
 		}
 		else if(p->state == 5)
 		{
 			state = "zombie";
-			cprintf("%d, %s, %s\n", p->pid, p->name, state);
+			cprintf("(%d, %s, %s, %d)\n", p->pid, p->name, state, p->priority);
 		}
 		
 		else
